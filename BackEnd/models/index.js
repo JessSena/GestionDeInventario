@@ -1,9 +1,9 @@
-const sequalize= require('../config/database');
+const sequelize= require('../config/database');
 const ProductModel= require('./product');
 
-const Product= ProductModel(sequalize);
+const Product= ProductModel(sequelize);
 
 module.exports={
-    sequalize,
+    sequelize,
     Product
 };

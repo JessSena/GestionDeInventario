@@ -1,7 +1,7 @@
-const {DataTypes} = require ('sequalize');
-const sequalize= require('../config/database');
+const {DataTypes} = require ('sequelize');
+const sequelize= require('../config/database');
 
-const Product= sequalize.define('Product', {
+const Product= sequelize.define('Product', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
