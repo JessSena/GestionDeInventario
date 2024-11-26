@@ -1,82 +1,108 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const product = ref({
+  name: '',
+  category: '',
+  quantity: '',
+  price: ''
+});
+const error = ref(null);
+const isEditing = ref(false);
+const route = useRoute();
+const router = useRouter();
+
+const fetchProduct = async (id) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/productos/${id}`);
+    if (!response.ok) throw new Error('Error al obtener el producto');
+    product.value = await response.json();
+  } catch (err) {
+    error.value = err.message;
+  }
+};
+
+const saveProduct = async () => {
+  const method = isEditing.value ? 'PUT' : 'POST';
+  const url = isEditing.value 
+    ? `${import.meta.env.VITE_API_URL}/productos/${product.value.id}`
+    : `${import.meta.env.VITE_API_URL}/productos`;
+    
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product.value)
+    });
+
+    if (!response.ok) throw new Error('Error al guardar el producto');
+    router.push('/product-list');
+  } catch (err) {
+    error.value = err.message;
+  }
+};
+
+onMounted(() => {
+  const id = route.params.id;
+  if (id) {
+    isEditing.value = true;
+    fetchProduct(id);
+  }
+});
+</script>
+
 <template>
-  <div class="container">
-    <h1>{{ isEditing ? "Editar" : "Agregar" }} Producto</h1>
-    <form @submit.prevent="addProduct" class="product-form">
-      <input v-model="newProduct.name" placeholder="Nombre del Producto" required class="form-input" />
-      <input v-model="newProduct.category" placeholder="Categoría" required class="form-input" />
-      <input v-model="newProduct.stock" type="number" placeholder="Stock" required class="form-input" />
-      <button type="submit" class="submit-button">{{ isEditing ? "Actualizar Producto" : "Agregar Producto" }}</button>
+  <div>
+    <h1>{{ isEditing ? 'Editar Producto' : 'Crear Producto' }}</h1>
+    <div v-if="error" class="error">{{ error }}</div>
+
+    <form @submit.prevent="saveProduct">
+      <div>
+        <label for="name">Nombre</label>
+        <input v-model="product.name" id="name" type="text" required />
+      </div>
+      <div>
+        <label for="category">Categoría</label>
+        <input v-model="product.category" id="category" type="text" required />
+      </div>
+      <div>
+        <label for="quantity">Cantidad</label>
+        <input v-model="product.quantity" id="quantity" type="number" required />
+      </div>
+      <div>
+        <label for="price">Precio</label>
+        <input v-model="product.price" id="price" type="number" required />
+      </div>
+      <button type="submit">{{ isEditing ? 'Actualizar Producto' : 'Crear Producto' }}</button>
     </form>
   </div>
 </template>
 
-<script>
-import { products } from '../components/ProductList.js';
-import { useRouter } from 'vue-router';
-
-export default {
-  data() {
-    return {
-      newProduct: { name: '', category: '', stock: 0 },
-      isEditing: false,
-    };
-  },
-  setup() {
-    const router = useRouter();
-    return { router };
-  },
-  methods: {
-    addProduct() {
-      const newProduct = { ...this.newProduct, id: this.generateId() };
-      products.push(newProduct); // Agrega el nuevo producto al array importado
-      this.newProduct = { name: '', category: '', stock: 0 }; // Resetea el formulario
-      console.log('Redirecting to ProductList');
-      this.router.push('/product-list'); // Redirige a la lista de productos
-    },
-    generateId() {
-      return products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
-    },
-  },
-};
-</script>
-
 <style scoped>
-.container {
-  max-width: 500px;
+.error {
+  color: red;
+  font-weight: bold;
+}
+form {
+  max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
-h1 {
-  color: #333;
-  text-align: center;
-}
-
-.product-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-input {
-  padding: 10px;
+input {
+  width: 100%;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 8px;
 }
-
-.submit-button {
-  padding: 10px;
+button {
+  padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
 }
-
-.submit-button:hover {
+button:hover {
   background-color: #0056b3;
 }
 </style>
