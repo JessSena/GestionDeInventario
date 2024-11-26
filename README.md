@@ -1,8 +1,8 @@
 # GestionDeInventario
 
-Alumnos: Jessica Sena y Federico Urich
-Materia: Arquitectura Web
-Profesor: Fernando Corinaldesi
+**Alumnos: Jessica Sena y Federico Urich**
+**Materia: Arquitectura Web**
+**Profesor: Fernando Corinaldesi**
 
 **Descripción del Proyecto**
 La Empresa X es una compañía mediana dedicada a la fabricación y distribución de productos electrónicos. Con el fin de optimizar sus procesos internos, se ha decidido modernizar su infraestructura tecnológica mediante el desarrollo de diversas aplicaciones y servicios. Este proyecto corresponde a la Aplicación de Gestión de Inventarios, que permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los productos de la empresa.
