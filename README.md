@@ -1,29 +1,125 @@
 # GestionDeInventario
 
-This template should help get you started developing with Vue 3 in Vite.
+Alumnos: Jessica Sena y Federico Urich
+Materia: Arquitectura Web
+Profesor: Fernando Corinaldesi
 
-## Recommended IDE Setup
+**Descripción del Proyecto**
+La Empresa X es una compañía mediana dedicada a la fabricación y distribución de productos electrónicos. Con el fin de optimizar sus procesos internos, se ha decidido modernizar su infraestructura tecnológica mediante el desarrollo de diversas aplicaciones y servicios. Este proyecto corresponde a la Aplicación de Gestión de Inventarios, que permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los productos de la empresa.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+El objetivo de este proyecto es crear una API RESTful en Node.js y Express, y un Frontend de una sola página (SPA) utilizando Vue.js. Además, la aplicación está integrada con una base de datos Microsoft SQL Server para la persistencia de los datos.
 
-## Customize configuration
+**Tecnologías**
+Backend: Node.js, Express
+Frontend: Vue.js
+Base de Datos: Microsoft SQL Server
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+**Funcionalidades**
+La aplicación de gestión de inventarios incluye las siguientes funcionalidades esenciales:
 
-## Project Setup
+Alta, baja y modificación de productos.
+Registro de entrada y salida de productos.
 
-```sh
+**Estructura del Proyecto**
+El proyecto está dividido en dos partes:
+
+Backend (API): Gestionado con Node.js y Express, proporcionando endpoints para realizar operaciones sobre los productos.
+Frontend (SPA): Una aplicación Vue.js que interactúa con la API para presentar y manipular los datos en una interfaz gráfica.
+
+**Instalación**
+Requisitos
+Node.js 
+Microsoft SQL Server y una base de datos configurada para el proyecto.
+Vue.js 
+Backend
+
+*Clonar el repositorio:*
+git clone https://github.com/JessSena/GestionDeInventario.git 
+
+*Instalar las dependencias:*
+cd backend
 npm install
-```
 
-### Compile and Hot-Reload for Development
+*Configurar las variables de entorno en el archivo database.js*
 
-```sh
-npm run dev
-```
+*Ejecutar el servidor*
+npm run dev (ya que se ha usado nodemon)
+Esto iniciará el servidor en http://localhost:5000.
 
-### Compile and Minify for Production
+Frontend
+*Entrar en la carpeta del frontend:*
+cd frontend
 
-```sh
-npm run build
-```
+*Instala las dependencias:*
+npm install
+
+*Inicia la aplicación Vue.js:*
+npm run 
+Esto abrirá la aplicación en http://localhost:8080.
+
+**Rutas de la API**
+*Endpoint de productos*
+
+POST /api/products: Crear un producto
+GET /api/products: Obtener todos los productos
+PUT /api/products/:id: Actualizar un producto
+DELETE /api/products/:id: Eliminar un producto
+
+*Ejemplos de Solicitudes HTTP*
+1. Crear un Producto (POST)
+POST http://localhost:5000/api/products
+Body (JSON):
+
+{
+  "name": "Smartphone X1",
+  "category": "Teléfonos",
+  "quantity": 150,
+  "price": 599.99
+}
+
+2. Obtener Todos los Productos (GET)
+GET http://localhost:5000/api/products
+
+3. Actualizar un Producto (PUT)
+PUT http://localhost:5000/api/products/1
+Body (JSON):
+{
+  "name": "Smartphone X2",
+  "category": "Teléfonos",
+  "quantity": 120,
+  "price": 649.99
+}
+
+4. Eliminar un Producto (DELETE)
+DELETE http://localhost:5000/api/products/1
+
+**Base de Datos**
+*Estructura de la tabla Products*
+
+CREATE TABLE Products (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    price FLOAT NOT NULL
+);
+
+*Insertar Productos Iniciales*
+
+INSERT INTO Products (name, category, quantity, price)
+VALUES 
+    ('Smartphone X1', 'Teléfonos', 150, 599.99),
+    ('Laptop Pro 15', 'Computadoras', 75, 1299.99),
+    ('Auriculares Bluetooth', 'Accesorios', 300, 79.99),
+    ('Teclado Mecánico', 'Accesorios', 200, 129.99),
+    ('Monitor 24" UHD', 'Monitores', 50, 349.99),
+    ('Mouse Inalámbrico', 'Accesorios', 500, 39.99),
+    ('Tablet 10"', 'Tabletas', 120, 249.99),
+    ('Cargador Rápido USB-C', 'Accesorios', 350, 19.99),
+    ('SSD 1TB', 'Almacenamiento', 80, 149.99),
+    ('Cámara Web HD', 'Accesorios', 100, 59.99);
+Integración con la App de Usuarios
+Para que el acceso a la aplicación de gestión de inventarios esté restringido a usuarios autenticados, se ha integrado la API de gestión de usuarios. Los endpoints de la API de productos verifican el token de autenticación del usuario antes de permitir la creación, actualización, eliminación o consulta de productos.
+
+**Conclusión**
+Con esta API y la SPA de frontend, la aplicación de Gestión de inventarios está lista para permitir una administración eficiente de los productos dentro de la empresa, con la capacidad de realizar operaciones CRUD sobre los productos, además de integrarse con otros servicios como el de gestión de usuarios para validar el acceso.
