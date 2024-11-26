@@ -1,7 +1,9 @@
 # GestionDeInventario
 
 **Alumnos: Jessica Sena y Federico Urich**
+
 **Materia: Arquitectura Web**
+
 **Profesor: Fernando Corinaldesi**
 
 **Descripción del Proyecto**
