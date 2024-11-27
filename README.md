@@ -98,7 +98,7 @@ DELETE http://localhost:5000/api/products/1
 **Base de Datos**
 *Estructura de la tabla Products*
 
-CREATE TABLE Products (
+CREATE TABLE Product (
     id INT IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE Products (
 
 *Insertar Productos Iniciales*
 
-INSERT INTO Products (name, category, quantity, price)
+INSERT INTO Product (name, category, quantity, price)
 VALUES 
     ('Smartphone X1', 'Teléfonos', 150, 599.99),
     ('Laptop Pro 15', 'Computadoras', 75, 1299.99),
@@ -120,8 +120,6 @@ VALUES
     ('Cargador Rápido USB-C', 'Accesorios', 350, 19.99),
     ('SSD 1TB', 'Almacenamiento', 80, 149.99),
     ('Cámara Web HD', 'Accesorios', 100, 59.99);
-Integración con la App de Usuarios
-Para que el acceso a la aplicación de gestión de inventarios esté restringido a usuarios autenticados, se ha integrado la API de gestión de usuarios. Los endpoints de la API de productos verifican el token de autenticación del usuario antes de permitir la creación, actualización, eliminación o consulta de productos.
 
 **Conclusión**
 Con esta API y la SPA de frontend, la aplicación de Gestión de inventarios está lista para permitir una administración eficiente de los productos dentro de la empresa, con la capacidad de realizar operaciones CRUD sobre los productos, además de integrarse con otros servicios como el de gestión de usuarios para validar el acceso.
