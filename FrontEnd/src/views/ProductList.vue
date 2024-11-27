@@ -7,7 +7,7 @@ const error = ref(null);
 // Función para obtener productos
 const fetchProducts = async () => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_APP_URL}/products`);
+    const response = await fetch(`http://localhost:5000/api/products`);
     if (!response.ok) throw new Error('Error al obtener productos');
     products.value = await response.json();
   } catch (err) {
@@ -18,7 +18,7 @@ const fetchProducts = async () => {
 // Función para eliminar un producto
 const deleteProduct = async (id) => {
   try {
-    const response = await fetch(`${VITE_APP_URL}/products/${id}`, {
+    const response = await fetch(`http://localhost:5000/api/products/${id}`, {
       method: 'DELETE',
     });
     if (!response.ok) throw new Error('Error al eliminar producto');

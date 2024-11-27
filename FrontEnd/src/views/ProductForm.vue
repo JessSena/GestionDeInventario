@@ -15,7 +15,7 @@ const router = useRouter();
 
 const fetchProduct = async () => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_APP_URL}/products`);
+    const response = await fetch(`http://localhost:5000/api/products`);
     if (!response.ok) throw new Error('Error al obtener el producto');
     product.value = await response.json();
   } catch (err) {
@@ -26,8 +26,8 @@ const fetchProduct = async () => {
 const saveProduct = async () => {
   const method = isEditing.value ? 'PUT' : 'POST';
   const url = isEditing.value 
-    ? `${import.meta.env.VITE_APP_URL}/products/${product.value.id}`
-    : `${import.meta.env.VITE_APP_URL}/products`;
+    ? `http://localhost:5000/api/products/${product.value.id}`
+    : `http://localhost:5000/api/products`;
     
   try {
     const response = await fetch(url, {
